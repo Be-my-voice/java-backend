@@ -1,6 +1,5 @@
 package com.bemyvoice.bemyvoicebackend.respository;
 
-import com.bemyvoice.bemyvoicebackend.entity.Lesson;
 import com.bemyvoice.bemyvoicebackend.entity.LessonSection;
 import org.springframework.data.jpa.repository.JpaRepository;
 
