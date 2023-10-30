@@ -34,6 +34,7 @@ public class LessonSectionServiceImpl implements LessonSectionService {
 
     @Override
     public List<LessonSectionDto> getAllLessonSectionByLessonId() {
+
         return null;
     }
 }
