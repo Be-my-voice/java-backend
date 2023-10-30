@@ -12,4 +12,5 @@ import lombok.Setter;
 public class LessonDto {
     private Long id;
     private String title;
+    private Boolean enabled;
 }

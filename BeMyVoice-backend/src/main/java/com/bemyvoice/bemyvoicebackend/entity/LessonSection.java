@@ -19,13 +19,13 @@ public class LessonSection {
     private Long id;
 
     @Column(name = "lesson_id", nullable = false)
-    private Long lesson_id;
+    private Long lessonId;
 
     @Column(name = "section_name" ,nullable = false)
-    private String section_name;
+    private String sectionName;
 
     @Column(name = "section_description")
-    private String section_description;
+    private String sectionDescription;
 
     @Column(name = "video")
     @Lob

@@ -8,14 +8,16 @@ public class LessonMapper {
     public static LessonDto mapToLessonDto(Lesson lesson){
         return new LessonDto(
                 lesson.getId(),
-                lesson.getTitle()
+                lesson.getTitle(),
+                lesson.getEnabled()
         );
     }
 
     public static Lesson mapToLesson(LessonDto lessonDto){
         return new Lesson(
                 lessonDto.getId(),
-                lessonDto.getTitle()
+                lessonDto.getTitle(),
+                lessonDto.getEnabled()
         );
     }
 }

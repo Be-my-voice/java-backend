@@ -12,10 +12,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class LessonSectionDto {
     private Long id;
-    private Long lesson_id;
-    private String section_name;
+    private Long lessonId;
+    private String sectionName;
 
-    private String section_description;
+    private String sectionDescription;
 
     @Lob
     private String video;

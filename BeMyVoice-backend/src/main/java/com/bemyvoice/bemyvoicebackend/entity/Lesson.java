@@ -19,4 +19,7 @@ public class Lesson {
 
     @Column(name = "Title", nullable = false )
     private String title;
+
+    @Column(name = "Enabled", nullable = false)
+    private Boolean enabled;
 }
