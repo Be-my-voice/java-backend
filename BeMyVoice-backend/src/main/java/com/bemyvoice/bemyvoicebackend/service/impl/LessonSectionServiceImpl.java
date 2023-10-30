@@ -1,9 +1,7 @@
 package com.bemyvoice.bemyvoicebackend.service.impl;
 
 import com.bemyvoice.bemyvoicebackend.dto.LessonSectionDto;
-import com.bemyvoice.bemyvoicebackend.entity.Lesson;
 import com.bemyvoice.bemyvoicebackend.entity.LessonSection;
-import com.bemyvoice.bemyvoicebackend.mapper.LessonMapper;
 import com.bemyvoice.bemyvoicebackend.mapper.LessonSectionMapper;
 import com.bemyvoice.bemyvoicebackend.respository.LessonSectionRepository;
 import com.bemyvoice.bemyvoicebackend.service.LessonSectionService;
