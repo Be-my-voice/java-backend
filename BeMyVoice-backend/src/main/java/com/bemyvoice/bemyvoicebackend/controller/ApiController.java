@@ -2,10 +2,16 @@ package com.bemyvoice.bemyvoicebackend.controller;
 
 import com.bemyvoice.bemyvoicebackend.dto.LessonDto;
 import com.bemyvoice.bemyvoicebackend.dto.LessonSectionDto;
+import com.bemyvoice.bemyvoicebackend.dto.QuestionDto;
+import com.bemyvoice.bemyvoicebackend.dto.QuizDto;
 import com.bemyvoice.bemyvoicebackend.entity.Lesson;
 import com.bemyvoice.bemyvoicebackend.entity.LessonSection;
+import com.bemyvoice.bemyvoicebackend.entity.Question;
+import com.bemyvoice.bemyvoicebackend.entity.Quiz;
 import com.bemyvoice.bemyvoicebackend.service.LessonSectionService;
 import com.bemyvoice.bemyvoicebackend.service.LessonService;
+import com.bemyvoice.bemyvoicebackend.service.QuestionService;
+import com.bemyvoice.bemyvoicebackend.service.QuizService;
 import lombok.AllArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
@@ -21,6 +27,8 @@ import java.util.List;
 public class ApiController {
     private LessonService lessonService;
     private LessonSectionService lessonSectionService;
+    private QuizService quizService;
+    private QuestionService questionService;
 
     @PostMapping("/create-lesson")
     public ResponseEntity<LessonDto> createLesson(@RequestBody LessonDto lessonDto){
@@ -98,5 +106,91 @@ public class ApiController {
     public ResponseEntity<List<LessonDto>> getAllEnabledLessons(){
         List<LessonDto> lessons = lessonService.getEnabledLessons();
         return ResponseEntity.ok(lessons);
+    }
+
+    //for quizzes
+    @PostMapping("/quiz/create-quiz")
+    public ResponseEntity<QuizDto> createQuiz(@RequestBody QuizDto quizDto){
+        QuizDto savedQuiz =  quizService.createQuiz(quizDto);
+        return new ResponseEntity<>(savedQuiz, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/quiz/get-all-quizes")
+    public ResponseEntity<List<QuizDto>> getAllQuizes(){
+        List<QuizDto> quizes = quizService.getAllQuizes();
+        return ResponseEntity.ok(quizes);
+    }
+
+    @GetMapping("/quiz/get-quiz-by-id/{id}")
+    public ResponseEntity<QuizDto> getQuizById(@PathVariable("id") Long quizId){
+        QuizDto quiz = quizService.getQuizById(quizId);
+        return ResponseEntity.ok(quiz);
+    }
+
+    @DeleteMapping("/quiz/delete-quiz/{id}")
+    public ResponseEntity<String> deleteQuiz(@PathVariable("id") Long quizId){
+        quizService.deleteQuiz(quizId);
+        return ResponseEntity.ok("QUIZ DELETED SUCCESSFULLY");
+    }
+
+    @PutMapping("/quiz/disable-quiz/{id}")
+    public ResponseEntity<QuizDto> disableQuiz(@PathVariable("id") Long quizId){
+        QuizDto quizDto = quizService.disableQuiz(quizId);
+        return ResponseEntity.ok(quizDto);
+    }
+
+    @PutMapping("/quiz/enable-quiz/{id}")
+    public ResponseEntity<QuizDto> enableQuiz(@PathVariable("id") Long quizId){
+        QuizDto quizDto = quizService.enableQuiz(quizId);
+        return ResponseEntity.ok(quizDto);
+    }
+
+    @GetMapping("/quiz/get-enabled-quizes")
+    public ResponseEntity<List<QuizDto>> getEnabledQuizes(){
+        List<QuizDto> quizes = quizService.getAllEnabledQuizes();
+        return ResponseEntity.ok(quizes);
+    }
+
+
+    @PutMapping("/quiz/update-quiz/{id}")
+    public ResponseEntity<QuizDto> updateQuiz(@PathVariable("id") Long quizId,@RequestBody QuizDto quizDto){
+        QuizDto quiz = quizService.updateQuiz(quizId, quizDto);
+        return ResponseEntity.ok(quiz);
+    }
+
+    //quiz - questions
+    @PostMapping("/question/create-question")
+    public ResponseEntity<QuestionDto> createQuestion(@RequestBody QuestionDto questionDto){
+        QuestionDto question = questionService.createQuestion(questionDto);
+        return new ResponseEntity<>(question, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/question/get-question/{id}")
+    public ResponseEntity<QuestionDto> getQuestionByQuestionId(@PathVariable("id") Long questionId){
+        QuestionDto question = questionService.getQuestionByQuestionId(questionId);
+        return ResponseEntity.ok(question);
+    }
+
+    @GetMapping("/question/get-questions-by-quiz-id/{id}")
+    public ResponseEntity<List<QuestionDto>> getQuestionsByQuizId(@PathVariable("id") Long quizId){
+        List<QuestionDto> questions = questionService.getQuestionsByQuizId(quizId);
+        return ResponseEntity.ok(questions);
+    }
+
+    @DeleteMapping("/question/delete-question/{id}")
+    public ResponseEntity<String> deleteQuestion(@PathVariable("id") Long questionId){
+        questionService.deleteQuestion(questionId);
+        return ResponseEntity.ok("QUESTION DELETED SUCCESSFULLY");
+    }
+
+    @PutMapping("/question/update-question/{id}")
+    public ResponseEntity<QuestionDto> updateQuestion(@PathVariable("id") Long questionId, @RequestBody QuestionDto questionDto){
+        QuestionDto updatedQuestion = questionService.updateQuestion(questionId, questionDto);
+        return ResponseEntity.ok(updatedQuestion);
+    }
+
+    @GetMapping("/quiz/get-question-count/{id}")
+    public ResponseEntity<Integer> getNoOfQuestions(@PathVariable("id") Long quizId){
+        return ResponseEntity.ok(questionService.getQuestionCountByQuizId(quizId));
     }
 }

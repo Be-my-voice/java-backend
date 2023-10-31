@@ -1,7 +1,6 @@
 package com.bemyvoice.bemyvoicebackend.service;
 
 import com.bemyvoice.bemyvoicebackend.dto.LessonDto;
-import com.bemyvoice.bemyvoicebackend.entity.Lesson;
 
 import java.util.List;
 
