@@ -71,4 +71,10 @@ public class QuizServiceImpl implements QuizService {
         Quiz updatedQuizObj = quizRepository.save(quiz);
         return QuizMapper.mapToQuizDto(updatedQuizObj);
     }
+
+    @Override
+    public List<QuizDto> getAllEnabledQuizes() {
+        List<Quiz> quizes = quizRepository.findByEnabled(true);
+        return quizes.stream().map((quiz) -> QuizMapper.mapToQuizDto(quiz)).collect(Collectors.toList());
+    }
 }

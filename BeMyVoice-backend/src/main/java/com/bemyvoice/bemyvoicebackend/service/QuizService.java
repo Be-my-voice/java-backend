@@ -19,4 +19,6 @@ public interface QuizService {
     QuizDto disableQuiz(Long quizId);
 
     QuizDto enableQuiz(Long quizId);
+
+    List<QuizDto> getAllEnabledQuizes();
 }

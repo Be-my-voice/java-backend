@@ -19,5 +19,4 @@ public class QuestionDto {
     private String answer3;
     private String answer4;
     private String correctAnswer;
-
 }

@@ -16,4 +16,17 @@ public class QuestionMapper {
                 question.getCorrectAnswer()
         );
     }
+
+    public static Question mapToQuestion(QuestionDto questionDto){
+        return new Question(
+                questionDto.getId(),
+                questionDto.getQuizId(),
+                questionDto.getQuestion(),
+                questionDto.getAnswer1(),
+                questionDto.getAnswer2(),
+                questionDto.getAnswer3(),
+                questionDto.getAnswer4(),
+                questionDto.getCorrectAnswer()
+        );
+    }
 }
