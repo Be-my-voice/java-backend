@@ -2,10 +2,13 @@ package com.bemyvoice.bemyvoicebackend.controller;
 
 import com.bemyvoice.bemyvoicebackend.dto.LessonDto;
 import com.bemyvoice.bemyvoicebackend.dto.LessonSectionDto;
+import com.bemyvoice.bemyvoicebackend.dto.QuizDto;
 import com.bemyvoice.bemyvoicebackend.entity.Lesson;
 import com.bemyvoice.bemyvoicebackend.entity.LessonSection;
+import com.bemyvoice.bemyvoicebackend.entity.Quiz;
 import com.bemyvoice.bemyvoicebackend.service.LessonSectionService;
 import com.bemyvoice.bemyvoicebackend.service.LessonService;
+import com.bemyvoice.bemyvoicebackend.service.QuizService;
 import lombok.AllArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
@@ -21,6 +24,7 @@ import java.util.List;
 public class ApiController {
     private LessonService lessonService;
     private LessonSectionService lessonSectionService;
+    private QuizService quizService;
 
     @PostMapping("/create-lesson")
     public ResponseEntity<LessonDto> createLesson(@RequestBody LessonDto lessonDto){
@@ -98,5 +102,30 @@ public class ApiController {
     public ResponseEntity<List<LessonDto>> getAllEnabledLessons(){
         List<LessonDto> lessons = lessonService.getEnabledLessons();
         return ResponseEntity.ok(lessons);
+    }
+
+    //for quizzes
+    @PostMapping("/quiz/create-quiz")
+    public ResponseEntity<QuizDto> createQuiz(@RequestBody QuizDto quizDto){
+        QuizDto savedQuiz =  quizService.createQuiz(quizDto);
+        return new ResponseEntity<>(savedQuiz, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/quiz/get-all-quizes")
+    public ResponseEntity<List<QuizDto>> getAllQuizes(){
+        List<QuizDto> quizes = quizService.getAllQuizes();
+        return ResponseEntity.ok(quizes);
+    }
+
+    @GetMapping("/quiz/get-quiz-by-id/{id}")
+    public ResponseEntity<QuizDto> getQuizById(@PathVariable("id") Long quizId){
+        QuizDto quiz = quizService.getQuizById(quizId);
+        return ResponseEntity.ok(quiz);
+    }
+
+    @DeleteMapping("/quiz/delete-quiz/{id}")
+    public ResponseEntity<String> deleteQuiz(@PathVariable("id") Long quizId){
+        quizService.deleteQuiz(quizId);
+        return ResponseEntity.ok("QUIZ DELETED SUCCESSFULLY");
     }
 }
