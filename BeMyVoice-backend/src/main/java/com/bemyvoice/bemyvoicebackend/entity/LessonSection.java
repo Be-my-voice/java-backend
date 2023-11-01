@@ -27,7 +27,6 @@ public class LessonSection {
     @Column(name = "section_description")
     private String sectionDescription;
 
-    @Column(name = "video")
-    @Lob
+    @Column(name = "video", columnDefinition = "longtext")
     private String video;
 }
