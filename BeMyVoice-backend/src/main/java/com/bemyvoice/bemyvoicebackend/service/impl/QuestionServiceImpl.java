@@ -53,6 +53,7 @@ public class QuestionServiceImpl implements QuestionService {
         question.setAnswer3(questionDto.getAnswer3());
         question.setAnswer4(questionDto.getAnswer4());
         question.setCorrectAnswer(questionDto.getCorrectAnswer());
+        question.setVideo(question.getVideo());
 
         return QuestionMapper.mapToQuestionDto(questionRepository.save(question));
     }

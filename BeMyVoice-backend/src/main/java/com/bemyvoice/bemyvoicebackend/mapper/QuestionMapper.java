@@ -13,7 +13,8 @@ public class QuestionMapper {
                 question.getAnswer2(),
                 question.getAnswer3(),
                 question.getAnswer4(),
-                question.getCorrectAnswer()
+                question.getCorrectAnswer(),
+                question.getVideo()
         );
     }
 
@@ -26,7 +27,8 @@ public class QuestionMapper {
                 questionDto.getAnswer2(),
                 questionDto.getAnswer3(),
                 questionDto.getAnswer4(),
-                questionDto.getCorrectAnswer()
+                questionDto.getCorrectAnswer(),
+                questionDto.getVideo()
         );
     }
 }

@@ -38,4 +38,6 @@ public class Question {
     @Column(name = "correctAnswer")
     private String correctAnswer;
 
+    @Column(name = "video" , columnDefinition = "LONGTEXT")
+    private String video;
 }
