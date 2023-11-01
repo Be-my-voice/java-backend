@@ -1,17 +1,8 @@
 package com.bemyvoice.bemyvoicebackend.controller;
 
-import com.bemyvoice.bemyvoicebackend.dto.LessonDto;
-import com.bemyvoice.bemyvoicebackend.dto.LessonSectionDto;
-import com.bemyvoice.bemyvoicebackend.dto.QuestionDto;
-import com.bemyvoice.bemyvoicebackend.dto.QuizDto;
-import com.bemyvoice.bemyvoicebackend.entity.Lesson;
-import com.bemyvoice.bemyvoicebackend.entity.LessonSection;
-import com.bemyvoice.bemyvoicebackend.entity.Question;
-import com.bemyvoice.bemyvoicebackend.entity.Quiz;
-import com.bemyvoice.bemyvoicebackend.service.LessonSectionService;
-import com.bemyvoice.bemyvoicebackend.service.LessonService;
-import com.bemyvoice.bemyvoicebackend.service.QuestionService;
-import com.bemyvoice.bemyvoicebackend.service.QuizService;
+import com.bemyvoice.bemyvoicebackend.dto.*;
+import com.bemyvoice.bemyvoicebackend.entity.*;
+import com.bemyvoice.bemyvoicebackend.service.*;
 import lombok.AllArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
@@ -19,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @AllArgsConstructor
 @RestController
@@ -29,6 +21,7 @@ public class ApiController {
     private LessonSectionService lessonSectionService;
     private QuizService quizService;
     private QuestionService questionService;
+    private MessageService messageService;
 
     @PostMapping("/create-lesson")
     public ResponseEntity<LessonDto> createLesson(@RequestBody LessonDto lessonDto){
@@ -192,5 +185,18 @@ public class ApiController {
     @GetMapping("/quiz/get-question-count/{id}")
     public ResponseEntity<Integer> getNoOfQuestions(@PathVariable("id") Long quizId){
         return ResponseEntity.ok(questionService.getQuestionCountByQuizId(quizId));
+    }
+
+    @PostMapping("/chat/send-message")
+    public ResponseEntity<MessageDto> sendMessage(@RequestBody MessageDto messageDto){
+        System.out.println("sending msg");
+        MessageDto savedMsg = messageService.sendMessage(messageDto);
+        return ResponseEntity.ok(savedMsg);
+    }
+
+    @GetMapping("/chat/receive/{sender}/{receiver}")
+    public ResponseEntity<List<MessageDto>> receiveMessage(@PathVariable("sender") UUID sender, @PathVariable("receiver") UUID receiver){
+        List<MessageDto> messages = messageService.receiveMessage(sender, receiver);
+        return ResponseEntity.ok(messages);
     }
 }

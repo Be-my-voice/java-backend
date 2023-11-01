@@ -20,6 +20,7 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public MessageDto sendMessage(MessageDto messageDto) {
         Message message = MessageMapper.mapToMessage(messageDto);
+        message.setSeen(false);
         Message savedMessage = messageRepository.save(message);
 
         return MessageMapper.mapToMessageDto(savedMessage);
